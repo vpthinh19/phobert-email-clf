@@ -1,0 +1,28 @@
+[project]
+name = "phobert-email-clf"
+version = "1.0.0"
+description = "Vietnamese email spam/ham classification with PhoBERT v2"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "transformers[torch]",
+    "protobuf",
+    "seaborn",
+    "scikit-learn",
+    "underthesea",
+    "numpy",
+    "matplotlib",
+    "pandas",
+    "torch",
+    "torchvision",
+    "huggingface-hub[cli]"
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+torchvision = { index = "pytorch-cu130" }
