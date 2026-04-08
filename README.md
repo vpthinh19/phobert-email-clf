@@ -34,16 +34,17 @@ Chi tiết khả năng phân loại trên tập dữ liệu kiểm thử (Test S
 ```text
 .
 ├── dataset/
-│   └── vi_dataset.csv    # Dữ liệu huấn luyện tiếng Việt
+│   └── vi_dataset.csv          # Dữ liệu huấn luyện tiếng Việt
 ├── models/
 │   ├── phobert_v2/             # Thư mục chứa Pre-trained Model (Tải về từ HuggingFace)
 │   └── phobert_spam_final/     # Thư mục chứa Model sau khi train xong
 ├── out/
-│   ├── checkpoints/             # Thư mục chứa các checkpoint trong quá trình train
+│   ├── checkpoints/            # Thư mục chứa các checkpoint trong quá trình train
 │   └── visualization/          # Thư mục lưu ảnh biểu đồ
-├── custom_utils.py             # Class Dataset, hàm Preprocessing & Evaluation
-├── predict.py                  # Script sử dụng model để dự đoán (Inference)
-├── train.py                    # Script huấn luyện model (Fine-tuning)
+├── src/
+│   ├── custom_utils.py         # Class Dataset, hàm Preprocessing & Evaluation
+│   ├── predict.py              # Script sử dụng model để dự đoán (Inference)
+│   └── train.py                # Script huấn luyện model (Fine-tuning)
 ├── pyproject.toml              # Cấu hình môi trường UV & Dependencies
 └── README.md                   # File tài liệu dự án
 ```
