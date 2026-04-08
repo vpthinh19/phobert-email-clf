@@ -11,6 +11,6 @@ models/phobert_v2/*
 !models/phobert_v2/.placeholder
 models/phobert_spam_final/*
 !models/phobert_spam_final/.placeholder
-out/checkpoints/*
-!out/checkpoints/.placeholder
+out/outputs/*
+!out/outputs/.placeholder
 !visualization/.placeholder

@@ -15,7 +15,7 @@ dependencies = [
     "pandas",
     "torch",
     "torchvision",
-    "huggingface-hub[cli]"
+    "datasets",
 ]
 
 [[tool.uv.index]]

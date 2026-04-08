@@ -13,12 +13,12 @@ Mô hình đã hội tụ rất tốt sau quá trình huấn luyện, đảm b�
 ### 1. Biểu đồ Huấn luyện (Cost & Metrics)
 Theo dõi diễn biến Loss và các chỉ số (Accuracy, F1, Precision, Recall) qua 5 Epoch:
 
-![Training Dashboard](./out/visualization/training_dashboard.png)
+![Training Dashboard](./out/visualization/phobert/training_dashboard.png)
 
 ### 2. Ma trận Nhầm lẫn (Confusion Matrix)
 Chi tiết khả năng phân loại trên tập dữ liệu kiểm thử (Test Set):
 
-![Confusion Matrix](./out/visualization/confusion_matrix.png)
+![Confusion Matrix](./out/visualization/phobert/confusion_matrix.png)
 
 ---
 

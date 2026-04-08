@@ -4,16 +4,24 @@ from custom_utils import preprocessing
 from typing import Dict, Union, List
 
 class SpamClassifier:
-    def __init__(self, model_path: str):
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print(f"Loading model from {model_path}...")
+    def __init__(self, model_path: str, label_map: Dict[str, int] = None, use_word_segmentation: bool = True):
+        self.use_word_segmentation = use_word_segmentation
+        self.device = torch.device("cuda" if torch.cuda.is_available()
+                                   else "mps" if hasattr(torch.backends, "mps") and torch.backends.mps.is_available()
+                                   else "cpu")
+        # label_map: {"ham": 0, "spam": 1}  →  id_to_label: {0: "HAM", 1: "SPAM"}
+        if label_map is None:
+            label_map = {"ham": 0, "spam": 1}
+        self.id_to_label = {v: k.upper() for k, v in label_map.items()}
+
+        print(f"Loading model from {model_path} on {self.device}...")
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         self.model = AutoModelForSequenceClassification.from_pretrained(model_path).to(self.device)
-        self.model.eval() # Bật chế độ đánh giá (tắt Dropout)
+        self.model.eval()
 
     def predict(self, text: str) -> Dict[str, Union[str, float, List[float]]]:
         # 1. Tiền xử lý -> Trả về chuỗi str
-        clean_text = preprocessing(text)
+        clean_text = preprocessing(text, use_word_segmentation=self.use_word_segmentation)
         
         # 2. Tokenize
         # inputs là một Dictionary chứa 2 Tensors: 'input_ids' và 'attention_mask'
@@ -45,12 +53,12 @@ class SpamClassifier:
         # - pred: Vị trí (index) của xác suất cao nhất (0 hoặc 1). Shape: [1] (vd: tensor([1]))
         conf, pred = torch.max(probs, dim=-1)
         
-        label = "SPAM" if pred.item() == 1 else "HAM"
+        label = self.id_to_label.get(pred.item(), str(pred.item()))
         
         return {
             "label": label,
-            "confidence": conf.item(), # .item() chuyển từ Tensor 0D về kiểu float chuẩn của Python
-            "probabilities": probs.cpu().numpy().tolist()[0] # Chuyển tensor [1, 2] thành List float [p_ham, p_spam]
+            "confidence": conf.item(),
+            "probabilities": probs.cpu().numpy().tolist()[0]
         }
 
 if __name__ == "__main__":
@@ -59,6 +67,7 @@ if __name__ == "__main__":
     test_email = "Chúc mừng bạn! Bạn nhận được quà tặng 500k từ Shopee. Click vào link để nhận ngay: http://rác.vn"
     result = model.predict(test_email)
     
+    label_names = list(model.id_to_label.values())
     print(f"\nNội dung: {test_email}")
     print(f"Kết quả: {result['label']} (Độ tin cậy: {result['confidence']:.2%})")
-    print(f"Phân phối xác suất [Ham, Spam]: {result['probabilities']}")
+    print(f"Phân phối xác suất {label_names}: {result['probabilities']}")
