@@ -29,7 +29,7 @@ Chi tiết khả năng phân loại trên tập dữ liệu kiểm thử (Test S
 
 ---
 
-## Cấu trúc Dự án
+## Cấu trúc project
 
 ```text
 .
