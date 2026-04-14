@@ -22,43 +22,8 @@ Chi tiết khả năng phân loại trên tập dữ liệu kiểm thử (Test S
 
 ---
 
-## Yêu cầu phần cứng
-- **Hệ điều hành:** Windows / Linux / macOS
-- **GPU:** Khuyến nghị sử dụng GPU có hỗ trợ NVIDIA CUDA để Training.
-- **VRAM:** Đã được kiểm thử thực tế và hoạt động mượt mà trên card **NVIDIA RTX 4050 (Tiêu thụ khoảng 4.5GB / 6.0GB VRAM)** với Batch Size `24`.
-
----
-
-## Cấu trúc project
-
-```text
-.
-├── dataset/
-│   └── vi_dataset.csv          # Dữ liệu huấn luyện tiếng Việt
-├── models/
-│   ├── phobert_v2/             # Thư mục chứa Pre-trained Model (Tải về từ HuggingFace)
-│   └── phobert_spam_final/     # Thư mục chứa Model sau khi train xong
-├── out/
-│   ├── checkpoints/            # Thư mục chứa các checkpoint trong quá trình train
-│   └── visualization/          # Thư mục lưu ảnh biểu đồ
-├── src/
-│   ├── custom_utils.py         # Class Dataset, hàm Preprocessing & Evaluation
-│   ├── predict.py              # Script sử dụng model để dự đoán (Inference)
-│   └── train.py                # Script huấn luyện model (Fine-tuning)
-├── pyproject.toml              # Cấu hình môi trường UV & Dependencies
-└── README.md                   # File tài liệu dự án
-```
-
 ## Tải mô hình PhoBERT base v2
 
 ```bash
 hf download vinai/phobert-base-v2 --local-dir ./models/phobert_v2
-```
-
----
-
-## Setup dependencies
-
-```bash
-uv sync
 ```
